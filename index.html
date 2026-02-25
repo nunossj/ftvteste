@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Federação de Futebol Virtual</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Tela de Login/Registro -->
+    <div id="auth-screen" class="screen active">
+        <div class="auth-container">
+            <h1 class="main-title">FEDERAÇÃO DE FUTEBOL VIRTUAL</h1>
+
+            <!-- Login Form -->
+            <div id="login-form" class="auth-form active">
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <input type="text" id="login-name" placeholder="Nome completo" required>
+                    <input type="password" id="login-password" placeholder="Senha" required>
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                    <p class="auth-link">
+                        Não tem conta? <a href="#" id="show-register">Cadastre-se</a>
+                    </p>
+                    <p class="auth-link">
+                        <a href="#" id="show-forgot">Esqueci minha senha</a>
+                    </p>
+                </form>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form" class="auth-form">
+                <h2>Cadastro</h2>
+                <form id="registerForm">
+                    <input type="text" id="register-name" placeholder="Nome completo" required>
+
+                    <select id="register-type" required>
+                        <option value="">Selecione uma opção</option>
+                        <option value="Jogador">Jogador</option>
+                        <option value="Time">Time</option>
+                        <option value="Jornalista">Jornalista</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+
+                    <input type="text" id="register-other" placeholder="Descrição (obrigatório)" style="display: none;">
+
+                    <input type="password" id="register-password" placeholder="Senha" required>
+                    <input type="password" id="register-confirm" placeholder="Confirmar senha" required>
+
+                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <p class="auth-link">
+                        Já tem conta? <a href="#" id="show-login">Fazer login</a>
+                    </p>
+                </form>
+            </div>
+
+            <!-- Forgot Password Form -->
+            <div id="forgot-form" class="auth-form">
+                <h2>Recuperar Senha</h2>
+                <form id="forgotForm">
+                    <input type="text" id="forgot-code" placeholder="Seu código de 6 dígitos" required>
+                    <div id="surname-options" style="display: none;">
+                        <p>Selecione seu sobrenome:</p>
+                        <div id="surname-buttons"></div>
+                    </div>
+                    <div id="reset-password-fields" style="display: none;">
+                        <input type="password" id="reset-password" placeholder="Nova senha" required>
+                        <input type="password" id="reset-confirm" placeholder="Confirmar nova senha" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="forgot-submit-btn">Validar Código</button>
+                    <p class="auth-link">
+                        <a href="#" id="back-to-login">Voltar ao login</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tela Principal -->
+    <div id="main-screen" class="screen">
+        <!-- Header -->
+        <header>
+            <div class="container">
+                <h1 class="logo">FEDERAÇÃO DE FUTEBOL VIRTUAL</h1>
+                <nav>
+                    <ul id="main-menu">
+                        <li><a href="#" data-page="home">Home</a></li>
+                        <li><a href="#" data-page="clubs">Clubes</a></li>
+                        <li><a href="#" data-page="players">Jogadores</a></li>
+                        <li><a href="#" data-page="news">Notícias</a></li>
+                        <li><a href="#" data-page="matches">Partidas</a></li>
+                        <li><a href="#" data-page="championships">Campeonatos</a></li>
+                        <li><a href="#" data-page="contact">Contato</a></li>
+                        <li class="admin-only"><a href="#" data-page="admin">Admin</a></li>
+                        <li><a href="#" id="logout-btn">Sair</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Conteúdo -->
+        <main class="container">
+            <!-- Página Home -->
+            <div id="home-page" class="page active">
+                <h2>Notícias em Destaque</h2>
+                <div id="featured-news" class="news-grid"></div>
+            </div>
+
+            <!-- Página Clubes -->
+            <div id="clubs-page" class="page">
+                <div class="page-header">
+                    <h2>Clubes</h2>
+                    <button class="btn btn-primary club-only" id="add-club-btn">Adicionar Clube</button>
+                </div>
+                <div id="clubs-list" class="grid"></div>
+            </div>
+
+            <!-- Página Jogadores -->
+            <div id="players-page" class="page">
+                <div class="page-header">
+                    <h2>Jogadores</h2>
+                    <button class="btn btn-primary player-only" id="add-player-btn">Adicionar Jogador</button>
+                </div>
+                <div class="filters">
+                    <input type="text" id="filter-player-name" placeholder="Filtrar por nome">
+                    <input type="text" id="filter-player-club" placeholder="Filtrar por clube">
+                    <button class="btn btn-secondary" id="filter-players-btn">Filtrar</button>
+                </div>
+                <div id="players-list" class="grid"></div>
+            </div>
+
+            <!-- Página Notícias -->
+            <div id="news-page" class="page">
+                <div class="page-header">
+                    <h2>Todas as Notícias</h2>
+                    <button class="btn btn-primary journalist-only" id="add-news-btn">Criar Notícia</button>
+                </div>
+                <div id="all-news" class="news-grid"></div>
+            </div>
+
+            <!-- Página Partidas -->
+            <div id="matches-page" class="page">
+                <div class="page-header">
+                    <h2>Partidas</h2>
+                    <button class="btn btn-primary club-only" id="add-match-btn">Adicionar Partida</button>
+                </div>
+                <div class="filters">
+                    <input type="date" id="filter-match-date" placeholder="Data">
+                    <select id="filter-match-club">
+                        <option value="">Todos os times</option>
+                    </select>
+                    <button class="btn btn-secondary" id="filter-matches-btn">Filtrar</button>
+                </div>
+                <div id="matches-list"></div>
+            </div>
+
+            <!-- Página Campeonatos -->
+            <div id="championships-page" class="page">
+                <div class="page-header">
+                    <h2>Campeonatos</h2>
+                    <button class="btn btn-primary admin-only" id="add-championship-btn">Criar Campeonato</button>
+                </div>
+                <div id="championships-list"></div>
+            </div>
+
+            <!-- Página Contato -->
+            <div id="contact-page" class="page">
+                <h2>Contato</h2>
+                <div class="contact-container">
+                    <div class="chat-container">
+                        <h3>Chat Interno</h3>
+                        <div id="chat-messages"></div>
+                        <div class="chat-input">
+                            <input type="text" id="chat-message-input" placeholder="Digite sua mensagem...">
+                            <button class="btn btn-primary" id="send-message-btn">Enviar</button>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <h3>Redes Sociais</h3>
+                        <a href="https://www.instagram.com/cbffvirtuall" target="_blank" class="btn btn-instagram">
+                            Instagram @cbffvirtuall
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Página Admin -->
+            <div id="admin-page" class="page">
+                <h2>Painel Administrativo</h2>
+                <div class="admin-tabs">
+                    <button class="tab-btn active" data-tab="pending-users">Usuários Pendentes</button>
+                    <button class="tab-btn" data-tab="all-users">Todos os Usuários</button>
+                </div>
+                <div class="tab-content">
+                    <div id="pending-users-tab" class="admin-tab active">
+                        <h3>Usuários Aguardando Aprovação</h3>
+                        <div id="pending-users-list"></div>
+                    </div>
+                    <div id="all-users-tab" class="admin-tab">
+                        <h3>Gerenciar Usuários</h3>
+                        <div id="all-users-list"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modais serão inseridos dinamicamente -->
+    <div id="modal-container"></div>
+
+    <script src="/js/functions.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
